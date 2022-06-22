@@ -20,14 +20,17 @@ export const SignOut = () => {
   const handleTransfer = async () => {
     try {
       await Moralis.transfer({
-        amount: Moralis.Units.ETH("0.1"),
+        amount: Moralis.Units.Polygon("0.1"),
         receiver: "0xbDa9846D029C211cca737c51085233Ced1F8297D",
         type: "native",
       }).then((e) => {
         alert("sucesfully transfered");
       });
       await fetchBalance();
-    } catch {}
+    } catch {
+      console.log("Unable to make transaction");
+      window.alert("Unable to make transaction")
+    }
   };
 
   return (
