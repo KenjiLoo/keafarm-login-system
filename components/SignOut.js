@@ -14,22 +14,25 @@ export const SignOut = () => {
     } catch {}
   };
   useEffect(() => {
-    fetchBalance();
+    try{
+      fetchBalance();
+    }catch{
+      alert("Unable to refresh")
+    };
   }, []);
 
   const handleTransfer = async () => {
     try {
+      await Moralis.enableWeb3();
       await Moralis.transfer({
-        amount: Moralis.Units.Polygon("0.1"),
+        amount: Moralis.Units.ETH("0.1"),
         receiver: "0xbDa9846D029C211cca737c51085233Ced1F8297D",
         type: "native",
       }).then((e) => {
-        alert("sucesfully transfered");
+        alert("success");
       });
-      await fetchBalance();
-    } catch {
-      console.log("Unable to make transaction");
-      window.alert("Unable to make transaction")
+    } catch (e){
+      alert(e);
     }
   };
 
